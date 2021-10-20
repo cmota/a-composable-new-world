@@ -1,6 +1,5 @@
 package com.cmota.unsplash.components
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,8 +20,6 @@ import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import com.cmota.unsplash.R
 
-private const val TAG = "ImagePreview"
-
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun AddImagePreview(
@@ -30,42 +27,33 @@ fun AddImagePreview(
     modifier: Modifier
 ) {
 
-    Log.d(TAG, "Loading image from uri=$url")
+    val request = ImageRequest.Builder(LocalContext.current)
+        .data(url)
+        .crossfade(true)
+        .build()
 
-    if (url.isEmpty()) {
-        Log.d(TAG, "Empty url")
-        AddImagePreviewEmpty(modifier)
+    val painter = rememberImagePainter(
+        request = request
+    )
 
-    } else {
+    Box {
 
-        val request = ImageRequest.Builder(LocalContext.current)
-            .data(url)
-            .crossfade(true)
-            .build()
-
-        val painter = rememberImagePainter(
-            request = request
+        Image(
+            painter = painter,
+            contentScale = ContentScale.Crop,
+            contentDescription = stringResource(id = R.string.description_preview),
+            modifier = modifier
         )
 
-        Box {
-
-            Image(
-                painter = painter,
-                contentScale = ContentScale.Crop,
-                contentDescription = stringResource(id = R.string.description_preview),
-                modifier = modifier
-            )
-
-            when (painter.state) {
-                is ImagePainter.State.Loading -> {
-                    AddImagePreviewEmpty(modifier)
-                }
-                is ImagePainter.State.Error -> {
-                    AddImagePreviewEmpty(modifier)
-                }
-                else -> {
-                    // Do nothing
-                }
+        when (painter.state) {
+            is ImagePainter.State.Loading -> {
+                AddImagePreviewEmpty(modifier)
+            }
+            is ImagePainter.State.Error -> {
+                AddImagePreviewEmpty(modifier)
+            }
+            else -> {
+                // Do nothing
             }
         }
     }
@@ -77,13 +65,11 @@ fun AddImagePreviewEmpty(
 ) {
 
     Column(
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Log.d(TAG, "Temporary error.")
 
         Surface(
             modifier = modifier,

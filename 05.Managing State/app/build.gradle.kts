@@ -6,7 +6,6 @@ plugins {
 
 dependencies {
     implementation("com.google.android.material:material:1.4.0")
-    implementation("com.google.accompanist:accompanist-swiperefresh:0.19.0")
 
     implementation("androidx.appcompat:appcompat:1.3.1")
 
@@ -23,9 +22,6 @@ dependencies {
     implementation("io.ktor:ktor-client-logging:1.6.4")
 
     implementation("io.coil-kt:coil-compose:1.3.2")
-
-    implementation("androidx.wear.compose:compose-material:1.0.0-alpha08")
-    implementation("androidx.wear.compose:compose-foundation:1.0.0-alpha08")
 }
 
 android {

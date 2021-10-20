@@ -12,43 +12,34 @@ private val fontSizeLarge = 21.sp
 private val fontSizeMedium = 17.sp
 private val fontSizeSmall = 15.sp
 
-private val AssistantFontFamily = FontFamily(
+private val BigNoodleTitlingFontFamily = FontFamily(
     Font(R.font.big_noodle_titling)
 )
 
-// Set of Material typography styles to start with
-val Typography = Typography(
+val typography = Typography(
     h1 = TextStyle(
         color = colorAccent,
-        fontFamily = AssistantFontFamily,
+        fontFamily = BigNoodleTitlingFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = fontSizeMedium
     ),
 
     h2 = TextStyle(
         color = colorAccent,
-        fontFamily = AssistantFontFamily,
+        fontFamily = BigNoodleTitlingFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = fontSizeSmall
     ),
 
-    h4 = TextStyle(
+    h3 = TextStyle(
         color = colorAccent,
-        fontFamily = AssistantFontFamily,
+        fontFamily = BigNoodleTitlingFontFamily,
         fontSize = fontSizeLarge
     ),
 
-    // Bottom bar
-
     subtitle1 = TextStyle(
-        color = colorPrimary,
-        fontFamily = AssistantFontFamily,
-        fontSize = fontSizeSmall
-    ),
-
-    subtitle2 = TextStyle(
-        color = colorPrimary,
-        fontFamily = AssistantFontFamily,
+        fontFamily = BigNoodleTitlingFontFamily,
+        fontWeight = FontWeight.Normal,
         fontSize = fontSizeSmall
     )
 )

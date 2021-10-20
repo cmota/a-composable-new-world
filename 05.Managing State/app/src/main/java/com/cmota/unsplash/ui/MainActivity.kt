@@ -23,9 +23,8 @@ class MainActivity : AppCompatActivity() {
 
             UnsplashTheme {
                 MainScreen(
-                    images = images,
-                    onSearchAction = { search -> unsplashViewModel.searchForATopic(search) },
-                    onRefreshAction = { unsplashViewModel.fetchImages() }
+                    images = images.value ?: emptyList(),
+                    onSearchAction = { topic -> unsplashViewModel.searchForATopic(topic) }
                 )
             }
         }

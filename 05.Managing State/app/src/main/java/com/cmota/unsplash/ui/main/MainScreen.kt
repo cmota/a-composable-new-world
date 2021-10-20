@@ -1,53 +1,73 @@
 package com.cmota.unsplash.ui.main
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.cmota.unsplash.R
+import com.cmota.unsplash.components.UnsplashTopAppBar
 import com.cmota.unsplash.shared.data.model.Image
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.cmota.unsplash.ui.about.AboutContent
+import com.cmota.unsplash.ui.home.HomeContent
+import com.cmota.unsplash.ui.theme.typography
+
+private val DEFAULT_SCREEN = BottomNavigationScreens.Home
 
 @Composable
 fun MainScreen(
-    images: State<List<Image>?>,
-    onSearchAction: (String) -> Unit,
-    onRefreshAction: () -> Unit
+    images: List<Image>,
+    onSearchAction: (String) -> Unit
 ) {
 
-    val bottomNavigationItems = listOf(
-        BottomNavigationScreens.Home,
-        BottomNavigationScreens.About
-    )
-
     val navController = rememberNavController()
-    navController.enableOnBackPressed(false)
 
     Scaffold(
         topBar = {
-            MainTopAppBar()
+            UnsplashTopAppBar(
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.app_name),
+                        style = typography.h3,
+                        color = MaterialTheme.colors.onBackground
+                    )
+                },
+                modifier = Modifier.fillMaxWidth(),
+                backgroundColor = MaterialTheme.colors.background,
+                elevation = 0.dp
+            )
         },
+
         bottomBar = {
+            val bottomNavigationItems = listOf(
+                BottomNavigationScreens.Home,
+                BottomNavigationScreens.About
+            )
+
             MainBottomBar(
                 navController = navController,
                 items = bottomNavigationItems
             )
         },
+
         content = {
 
-            val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
-
-            SwipeRefresh(
-                state = swipeRefreshState,
-                onRefresh = {
-                    onRefreshAction()
+            NavHost(navController, startDestination = DEFAULT_SCREEN.route) {
+                composable(BottomNavigationScreens.Home.route) {
+                    HomeContent(
+                        images = images,
+                        onSearchAction = onSearchAction
+                    )
                 }
-            ) {
-                MainContent(
-                    navController = navController,
-                    images = images,
-                    onSearchAction = onSearchAction
-                )
+                composable(BottomNavigationScreens.About.route) {
+                    AboutContent()
+                }
             }
         }
     )

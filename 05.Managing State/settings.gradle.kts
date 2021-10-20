@@ -7,5 +7,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = "unsplash-compose"
+rootProject.name = "unsplash"
 include(":app")
