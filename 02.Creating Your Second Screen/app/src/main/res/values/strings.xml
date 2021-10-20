@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Unsplash Compose</string>
+    <string name="app_name">Unsplash</string>
 
     <!-- Navigation -->
     <string name="navigation_home">Home</string>

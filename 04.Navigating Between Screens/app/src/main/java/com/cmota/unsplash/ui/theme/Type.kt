@@ -35,5 +35,11 @@ val typography = Typography(
         color = colorAccent,
         fontFamily = BigNoodleTitlingFontFamily,
         fontSize = fontSizeLarge
+    ),
+
+    subtitle1 = TextStyle(
+        fontFamily = BigNoodleTitlingFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = fontSizeSmall
     )
 )
