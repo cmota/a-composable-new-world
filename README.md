@@ -13,5 +13,5 @@ It's also worth to mention that Compose is getting Multiplatform! If you want to
 
 
 <h3 align="center">
-  <img src="img/codelab-a-composable_new_world.png" alt="Codelab: A Composable New World" />
+  <img src="img/codelab_a_composable_new_world.png" alt="Codelab: A Composable New World" />
 </h3>
