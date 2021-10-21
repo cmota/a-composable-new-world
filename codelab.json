@@ -1,0 +1,26 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-10-21T12:03:09Z",
+  "id": "a-composable-new-world",
+  "duration": 80,
+  "title": "A Composable New World",
+  "authors": "Carlos Mota",
+  "summary": "In this codelab, you'll build an Android application using Jetpack Compose. You'll build an application that interacts with the Unsplash API in order to retrieve images.",
+  "source": "1c9sNNNBMJacD32OClknZSa2XK_dgCysB8Omckgk2Zp8",
+  "theme": "android",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "android",
+    "desktop"
+  ],
+  "tags": [
+    "dcbln21"
+  ],
+  "feedback": "https://github.com/cmota/compose-codelabs/issues",
+  "url": "a-composable-new-world"
+}

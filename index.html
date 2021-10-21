@@ -1,0 +1,1047 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>A Composable New World</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="a-composable-new-world"
+                  title="A Composable New World"
+                  environment="web"
+                  feedback-link="https://github.com/cmota/compose-codelabs/issues">
+    
+      <google-codelab-step label="Introduction" duration="80">
+        <p class="image-container"><img style="width: 277.57px" src="img/58ecd00b1699df79.png"></p>
+<p>Jetpack Compose official logo.</p>
+<p><strong>Last Updated:</strong> 2021-10-16</p>
+<h2 is-upgraded><strong>Jetpack Compose</strong></h2>
+<p>Throughout this year we&#39;ve got our timelines flooded with posts about Jetpack Compose. It all started in February-March with the #AndroidDevChallenge and from then on we&#39;ve kept seeing new developers joining this Composable new world!</p>
+<h3 is-upgraded><strong>What&#39;s Jetpack Compose?</strong></h3>
+<p>&#34;Jetpack Compose is Android&#39;s modern toolkit for building native UI. It simplifies and accelerates UI development on Android. Quickly bring your app to life with less code, powerful tools, and intuitive Kotlin APIs.&#34;, as mentioned on the <a href="https://developer.android.com/jetpack/compose" target="_blank">official website</a>.</p>
+<p>Along with this, it&#39;s also worth mentioning that Android features are no longer chained to a specific API version. Starting in API 21, all developments are backward compatible. This means that if, for instance, you want to use the IME animation that was released in Android 11, you can use them back until lollipop. Yes! When Android was still named after popular desserts.</p>
+<h3 is-upgraded><strong>More about Jetpack Compose</strong></h3>
+<p>Although Jetpack Compose brings a lot of advantages, it&#39;s important to mention that it has an associated learning curve. If you&#39;ve been developing for Android for quite some time and so you&#39;ve been using imperative UI, making the change to declarative will take you a few weeks/months to master - this is normal. </p>
+<p>You&#39;ll need to learn this new development paradigm along with an entire new API. We&#39;ve all taken months, so don&#39;t worry if things might be a bit blurry in the beginning, learning something new takes time.</p>
+<p>Fortunately, there are a lot of materials available that will help you along the way:</p>
+<ul>
+<li><a href="https://github.com/googlecodelabs/android-compose-codelabs" target="_blank">Android Compose Codelabs</a></li>
+<li><a href="https://leanpub.com/composeinternals" target="_blank">Jetpack Compose Internals</a></li>
+<li><a href="https://github.com/android/compose-samples" target="_blank">Jetpack Compose Samples</a></li>
+</ul>
+<h3 is-upgraded><strong>A few more notes</strong></h3>
+<p>Before we jump into the Codelab, remember that Jetpack Compose is in version 1.0.x. If we compare it with XML it has just given its first steps, so you might find a couple of bugs along the way, or perhaps some API&#39;s don&#39;t support the full set of attributes/functionalities that you&#39;re used to. This is perfectly fine, for the first one you always have Google&#39;s <a href="https://issuetracker.google.com/issues/new?component=610764&template=1424126" target="_blank">issue tracker</a> from where you can check if anyone found the same problem, for the second one, if there&#39;s no library that solves the problem you can always use XML on that Activity (they&#39;re interoperable), or better - you can give it support!</p>
+<h2 is-upgraded><strong>What you&#39;ll build</strong></h2>
+<p>In this codelab, you&#39;re going to build the <em>Unsplash </em>app! It&#39;s a simple application that communicates with the Unsplash servers in order to download the most beautiful images out there.</p>
+<p class="image-container"><img style="width: 292.77px" src="img/9519e6baec149821.png"></p>
+<h2 class="checklist" is-upgraded><strong>What you&#39;ll learn</strong></h2>
+<ul class="checklist">
+<li>Build a multi screen application using Compose</li>
+<li>Get to know its basic components: Row, LazyColumn, Image, Text, etc.</li>
+<li>Navigate between screens</li>
+<li>Manage state </li>
+<li>Theme and styles your app</li>
+<li>And all of this made available for a desktop app 🤐</li>
+</ul>
+<h2 is-upgraded><strong>What do I need to start?</strong></h2>
+<ul>
+<li><a href="https://developer.android.com/studio" target="_blank">Android Studio Arctic Fox</a> or a newer version. My suggestion is to use the first one, patch 3 was just released and at this moment is the most stable version. It&#39;s also worth mentioning that if you have a Mac M1 there&#39;s an optimized Android Studio version for your processor that I strongly recommend.</li>
+</ul>
+<h2 is-upgraded><strong>How to create a Compose project?</strong></h2>
+<p>Android Studio Arctic Fox and newer versions already have a new template for Jetpack Compose. Although in this codelab you&#39;re going to start with an existing project that already communicates with the Unsplash servers in order to get the latest trending images. It&#39;s worth mentioning that you can easily create a new project via the <strong>New Project</strong> wizard on Android Studio.</p>
+<p>To do this, open Android Studio and click in <strong>New Project</strong>.</p>
+<p class="image-container"><img style="width: 624.00px" src="img/f6d20bb9ea926361.png"></p>
+<p>You&#39;ll be prompted with a similar screen where you find a grid with several templates. Select the <strong>Empty Compose Activity</strong>.</p>
+<p>In order to create your new project, you&#39;ll need to enter its name, package, etc. - similar to what you&#39;re already familiar with.</p>
+<p class="image-container"><img style="width: 624.00px" src="img/1c62ece8d3be84d5.png"></p>
+<p>After filling all the fields, click on <strong>Finish</strong> and wait for the project to synchronize.</p>
+<p>Once done, click on compile and run in a couple of seconds you&#39;ll see an app on your phone/emulator welcoming you to this Composable new world! </p>
+<aside class="warning"><p><strong>Note: </strong>At the time of this writing, the current version of Jetpack Compose is <strong>1.1.0-alpha05</strong> which is compatible with <strong>Kotlin 1.5.31</strong>. Since the template is going to use an older version, feel free to update to a new one.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Getting Started" duration="0">
+        <h2 is-upgraded><strong>Get a key for the Unsplash API</strong></h2>
+<p>The images that you&#39;re going to see in the app comes from the <a href="https://unsplash.com/developers" target="_blank">Unsplash API</a>. In order to use it, you&#39;ll need to request an API key. It&#39;s easy to use, and free for non-commercial projects.</p>
+<p><a href="https://unsplash.com/developers" target="_blank"><paper-button class="colored" raised>Register for API Key</paper-button></a></p>
+<h2 is-upgraded><strong>Get the code</strong></h2>
+<p>Everything you need for this project is in this git repository. To get started, you&#39;ll need to</p>
+<ol type="1" start="1">
+<li>Clone the project locally</li>
+</ol>
+<pre><code>git clone https://github.com/cmota/a-composable-new-world.git</code></pre>
+<ol type="1" start="2">
+<li>Now open the <strong>Starter Project</strong> on Android Studio.</li>
+</ol>
+<ol type="1" start="3">
+<li>You&#39;ll need to wait until gradle runs all the tasks. You can get up and stretch your legs a bit, this is going to take some minutes. </li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img/615b64c2d03c7c6e.png"></p>
+<ol type="1" start="4">
+<li>Compile and run the app. You should see a screen similar to this one:</li>
+</ol>
+<p class="image-container"><img style="width: 251.38px" src="img/3723b9d4c05f55a4.png"></p>
+<h3 is-upgraded><strong>Alternative: Download code &amp; work locally</strong></h3>
+<p>The source code of this codelab is available on GitHub. It follows the same structure of this Codelab. </p>
+<p>Let&#39;s start! Open the content of <strong>Starter Project</strong> on Android Studio.</p>
+<p><a href="https://github.com/cmota/a-composable-new-world" target="_blank"><paper-button class="colored" raised>Download: A Composable New World</paper-button></a></p>
+<ol type="1" start="1">
+<li>Unpack the downloaded zip file.</li>
+<li>Open Android Studio</li>
+<li>Click in <strong>Open</strong></li>
+<li>Navigate to the <strong>Starter Project</strong> folder and open it</li>
+<li>Wait for the project to synchronize</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Project structure" duration="0">
+        <p>When you open <strong>00.Starter Project</strong> and start to navigate throughout the source code you&#39;ll see two separated folders:</p>
+<ul>
+<li><strong>shared</strong></li>
+</ul>
+<p>This one contains all of the business logic for the Unsplash app</p>
+<ul>
+<li><strong>ui</strong></li>
+</ul>
+<p>With all the code required to design the UI</p>
+<p>For the initial sections of this codelab you&#39;ll only need to work with the <strong>ui </strong>folder. <strong>shared</strong> is left for the last - <em>But wait! There&#39;s more: Alicerce</em>, and as you&#39;ll see it was built to help you move your existing code to multiplatform. But that&#39;s a secret for now! 🤐</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating Your First Screen" duration="0">
+        <p>After synchronizing and running the project you look at your device/emulator and see... a black screen. Don&#39;t worry, everything is working as expected! </p>
+<p>It&#39;s now time to start adding content to it.</p>
+<h2 is-upgraded><strong>About</strong><strong> Screen</strong></h2>
+<p>If you open the <strong>AndroidManifest.xml</strong> you&#39;ll see that <strong>MainActivity.kt</strong> is the activity that&#39;s going to be launched when the app starts (it&#39;s also the only activity of the project). </p>
+<p>You can already spot a couple of differences between Compose and XML. The one that immediately jumps out is when you look at the setContent function and see that it no longer receives a layout resource. Instead a <code>Composable</code> function is required in order to design your screen.</p>
+<aside class="warning"><p><strong>Note: </strong>The import for <code>setContent</code> is now  <strong>androidx.activity.compose</strong>.</p>
+</aside>
+<p>Having readability in mind, the project is organized into subfolders where each one of them correspond to a specific screen or feature:</p>
+<ul>
+<li><strong>about</strong></li>
+</ul>
+<p>Defines the Composable functions for the about screen code</p>
+<ul>
+<li><strong>theme</strong></li>
+</ul>
+<p>Contains a set of classes that together define the theme and styles for the application</p>
+<p>As you&#39;re moving through the sections you&#39;ll see new folders being added.</p>
+<h2 is-upgraded><strong>Adding Text</strong></h2>
+<p>Ready to dive into Compose? Let&#39;s start!</p>
+<p>For now you&#39;re seeing a black screen, so let&#39;s start by adding some text! To do this, there is a function called <code>Text</code>. It receives a couple of parameters, for now let&#39;s focus on defining a specific string.</p>
+<p>Inside the <code>Composable</code> of the <strong>AboutContent.kt</strong> file add:</p>
+<pre><code>@Composable
+fun AboutContent() {
+
+  Text(
+    text = stringResource(id = R.string.about_text)
+  )
+}</code></pre>
+<p>Don&#39;t forget that you&#39;ll also need to import the correspondent classes:</p>
+<ul>
+<li><code>Text</code></li>
+</ul>
+<pre>import androidx.compose.material.Text</pre>
+<ul>
+<li><code>stringResource</code></li>
+</ul>
+<pre>import androidx.compose.ui.res.stringResource</pre>
+<ul>
+<li><strong>R</strong></li>
+</ul>
+<pre>import com.cmota.unsplash.R</pre>
+<p><code>stringResource</code> can be seen as the equivalent function of <code>getString</code> but for <code>Composables</code>. Typically to access a string resource you would either use the activity or application <strong>context</strong> to call <code>getString</code>. With <code>stringResource</code> this is easier and the only condition to call it is that the code is inside a <code>Composable</code> function.</p>
+<p>Now compile and run the project. What did you see differently?</p>
+<p>Nothing right? That&#39;s because the default color for the <code>Text</code> is black - the same one that&#39;s being used on the surface. Let&#39;s change that!</p>
+<h2 is-upgraded><strong>Customizing Text</strong></h2>
+<p>Once the default color of the text is the same as the background it&#39;s time to change one of them, otherwise it won&#39;t be possible to read anything.</p>
+<p>In the same file, set the following parameter in the <code>Text</code> function.</p>
+<pre><code>@Composable
+fun AboutContent() {
+
+  Text(
+    text = stringResource(id = R.string.about_text)
+    color = Color.White
+  )
+}</code></pre>
+<aside class="warning"><p><strong>Note: </strong>Don&#39;t forget to import the <strong>androidx.compose.ui.graphics.Color</strong> so your app can access the white color.</p>
+</aside>
+<p class="image-container"><img style="width: 251.59px" src="img/36691d19d48cfb04.png"></p>
+<p>Better, right?</p>
+<p><code>Text</code> supports all of these parameters to be defined:</p>
+<pre>@Composable
+fun Text(
+   text: String,
+   modifier: Modifier = Modifier,
+   color: Color = Color.Unspecified,
+   fontSize: TextUnit = TextUnit.Unspecified,
+   fontStyle: FontStyle? = null,
+   fontWeight: FontWeight? = null,
+   fontFamily: FontFamily? = null,
+   letterSpacing: TextUnit = TextUnit.Unspecified,
+   textDecoration: TextDecoration? = null,
+   textAlign: TextAlign? = null,
+   lineHeight: TextUnit = TextUnit.Unspecified,
+   overflow: TextOverflow = TextOverflow.Clip,
+   softWrap: Boolean = true,
+   maxLines: Int = Int.MAX_VALUE,
+   onTextLayout: (TextLayoutResult) -&gt; Unit = {},
+   style: TextStyle = LocalTextStyle.current
+)</pre>
+<pre><code></code></pre>
+<p>For now, define the text to be bigger and so easier to read and align it to center instead of left.</p>
+<pre><code>@Composable
+fun AboutContent() {
+
+  Text(
+    text = stringResource(id = R.string.about_text)
+    color = Color.White,
+    fontSize = 21.sp,
+    textAlign = TextAlign.Center
+  )
+}</code></pre>
+<p>You&#39;ll see a similar screen to this one:</p>
+<p class="image-container"><img style="width: 210.96px" src="img/b7f28dd9b47e550a.png"></p>
+<p>Feel free to play with the rest of these parameters and see how they affect your text.</p>
+<h2 is-upgraded><strong>Defining your layout</strong></h2>
+<p>You&#39;ve already customized your text, but it still feels that this screen has everything too close, there&#39;s almost no space between the status bar and the app. Let&#39;s update this!</p>
+<p>First, you&#39;ll need to use a new function called <code>Column</code>. Before continuing, the following image from the Android documentation is important to better understand this Composable.</p>
+<p class="image-container"><img style="width: 624.00px" src="img/46bc1d5d41ef9fd1.png"></p>
+<p>A good example on why we need to use these functions is to add another <code>Text</code> and see what happens:</p>
+<p class="image-container"><img style="width: 226.75px" src="img/5886763c98d5cc25.png"></p>
+<p>The screen will render both texts one on top of the other. Now, to overcome this you can either add <code>Column</code> if you want them to be one below the other or <code>Row</code> if instead you want them aligned side by side.</p>
+<p>Using <code>Column</code>:</p>
+<pre>@Composable
+fun AboutContent() {
+
+   Column {
+       Text(
+           text = stringResource(id = R.string.app_name),
+           color = Color.Red,
+           fontSize = 21.sp,
+           textAlign = TextAlign.Center
+       )
+
+       Text(
+           text = stringResource(id = R.string.about_text),
+           color = Color.White,
+           fontSize = 21.sp,
+           textAlign = TextAlign.Center
+       )
+   }
+}</pre>
+<p class="image-container"><img style="width: 225.45px" src="img/dfef1fdeb6f20562.png"></p>
+<h2 is-upgraded><strong>Integrating your Text with the surroundings</strong></h2>
+<p>Now imagine that you want to center your text on the screen. There are different possibilities to achieve this, but since you&#39;ve just seen how to use <code>Column</code> you&#39;re going to follow this approach.</p>
+<p>In the section above you&#39;ve seen that <code>Column</code> allows you to stack components. This function has a lot more functionalities that you can use to build your UI&#39;s.</p>
+<pre>@Composable
+inline fun Column(
+   modifier: Modifier = Modifier,
+   verticalArrangement: Arrangement.Vertical = Arrangement.Top,
+   horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+   content: @Composable ColumnScope.() -&gt; Unit
+)</pre>
+<p>One of these features is the use of <code>Modifier</code>. Here you can define a never ending set of attributes: width, height, background, click event, padding, etc. And of course, you can always create extensions with new behaviors 🙂.</p>
+<p>Along with it, you also have the <code>verticalArrangment</code> and <code>horizontalAlignment</code> that allow you to define how content should be displayed in the screen: align to the start, end, top, bottom, etc.</p>
+<p>You&#39;ll use these four parameters to center your text.</p>
+<aside class="warning"><p><strong>Note: </strong>The fourth parameter - <code>content</code> - corresponds to the <code>Text</code> <code>Composable</code>.</p>
+</aside>
+<pre>@Composable
+fun AboutContent() {
+
+   Column(
+       modifier = Modifier
+           .fillMaxSize()
+           .padding(16.dp),
+       horizontalAlignment = Alignment.CenterHorizontally,
+       verticalArrangement = Arrangement.Center
+   ) {
+       Text(
+           text = stringResource(id = R.string.about_text),
+           color = Color.White,
+           fontSize = 21.sp,
+           textAlign = TextAlign.Center
+       )
+   }
+}</pre>
+<p>You should see a similar screen to this one:</p>
+<p class="image-container"><img style="width: 286.07px" src="img/13e47f79dbea52ec.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating Your Second Screen" duration="0">
+        <p>In the previous screen you&#39;ve added and customized text on an empty screen. It&#39;s time to dive in and build our app.</p>
+<h2 is-upgraded><strong>Adding your second screen</strong></h2>
+<p>Start by creating a new package called<strong> home</strong> inside <strong>ui</strong>. The correct path should be: </p>
+<ul>
+<li>app/src/main/java/com.cmota.unsplash/ui/home</li>
+</ul>
+<p>Here is where you&#39;re going to create the second screen for your app. After creating the folder add a new Kotlin file inside and call it <strong>HomeContent.kt</strong>.</p>
+<p>Update it&#39;s content to be a <code>Composable</code> function called <code>HomeContent</code>.</p>
+<pre>@Composable
+fun HomeContent() {
+  // Your code will be here
+}</pre>
+<p>Don&#39;t forget to import <strong>androidx.compose.runtime.Composable</strong> in order to use <code>@Composable</code>.</p>
+<h2 is-upgraded><strong>Adding images</strong></h2>
+<p>This screen contains a list of images that are going to be fetched from Unsplash API. So the first step here is to define our image. Create a new function called <code>AddUnsplashImage</code> and add:</p>
+<pre>@Composable
+fun AddUnsplashImage(image: Image) {
+
+}</pre>
+<p>It&#39;s going to receive an Image object which is defined inside <strong>shared/data/model</strong> and it&#39;s used to serialize the response received from the API. Here, it&#39;s going to be used to populate this function.</p>
+<p>You&#39;ll need to import <code>Image</code> from <strong>com.cmota.unsplash.shared.data.model.Image.</strong></p>
+<p>You&#39;re not going to load these images from the device local storage, <code>Image</code> contains a url from where the image needs to be downloaded so it can be displayed. </p>
+<p>There are already a lot of libraries that do this for you: Glide, Picasso, Coil, etc. Here, you&#39;re going to use Coil. Why? Well, it was the first library that I&#39;ve noticed that already supported Compose and it has been working perfectly since then.</p>
+<p>Start by adding the library to the project. Open <strong>build.gradle.kts</strong> and in the <strong>dependencies </strong>section add:</p>
+<pre>implementation(&#34;io.coil-kt:coil-compose:1.3.2&#34;)</pre>
+<p>Now click on <strong>synchronize</strong> and wait a bit for the system to fetch Coil.</p>
+<p>Once done, create a new package called <strong>components</strong>. It should be inside <strong>com.cmota.unsplash. </strong>Here create a new class and call it <strong>ImagePreview.kt</strong>. This is a component that you can reuse throughout your app screens, so instead of adding it to <strong>HomeContent.kt</strong> increasing the number of lines of that file and reducing readability I&#39;ve decided to add it inside <strong>components</strong>. </p>
+<p>Now, if you want to add images on another screen instead of looking for the correct function inside <strong>HomeContent.kt</strong> you just need to browse your <strong>components</strong> folder.</p>
+<p>It&#39;s now time to define the image integration with Coil.</p>
+<pre>@OptIn(ExperimentalCoilApi::class)
+@Composable
+//1
+fun AddImagePreview(
+   url: String,
+   modifier: Modifier
+) {
+   //2
+   val request = ImageRequest.Builder(LocalContext.current)
+       .data(url)
+       .crossfade(true)
+       .build()
+   //3
+   val painter = rememberImagePainter(
+       request = request
+   )
+
+   Box {
+       //4
+       Image(
+           painter = painter,
+           contentScale = ContentScale.Crop,
+           contentDescription = stringResource(id = R.string.description_preview),
+           modifier = modifier
+       )
+       //5
+       when (painter.state) {
+           is ImagePainter.State.Loading -&gt; {
+               AddImagePreviewEmpty(modifier)
+           }
+           is ImagePainter.State.Error -&gt; {
+               AddImagePreviewEmpty(modifier)
+           }
+           else -&gt; {
+               // Do nothing
+           }
+       }
+   }
+}</pre>
+<p>A lot is being done here, so let&#39;s go step by step:</p>
+<ol type="1" start="1">
+<li><strong>AddImagePreview</strong> needs to receive a <code>url</code> and a <code>modifier</code>. The first one is used to define where the image should be fetched and the second one to define the attributes for the image component.</li>
+<li>The request is done through the <strong>Coil</strong> image library. Here, the url from the image is set and the <code>crossfade</code> parameter enabled. This is set just to create a smooth animation for when the image is fetched.</li>
+<li>The painter object needs to be set using <code>rememberImagePainter</code>, so recomposition can take place when the image is downloaded. Otherwise, the screen will show <code>AddImagePreviewEmpty</code> from <code>Loading</code> state.</li>
+<li><code>Image Composable</code>, responsible to draw the image on the screen. It&#39;s worth mentioning that you should always set <code>contentDescription</code> for accessibility purposes.</li>
+<li>Finally, depending on the current state of the image one might want to show different screens. For instance, if an image fails to load, you may want to add a retry button. Here, you&#39;re going to fallback and use always the same - <code>AddImagePreviewEmpty</code></li>
+</ol>
+<p>Add the <code>AddImagePreviewEmpty</code> function:</p>
+<pre>@Composable
+fun AddImagePreviewEmpty(
+    modifier: Modifier
+) {
+
+    Column(
+        modifier = modifier
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Surface(
+            modifier = modifier,
+            color = Color.Transparent
+        ) {
+
+            val icon = painterResource(R.drawable.ic_launcher)
+            val description = stringResource(id = R.string.description_preview_error)
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+
+                Image(
+                    painter = icon,
+                    contentScale = ContentScale.Crop,
+                    contentDescription = description,
+                    modifier = modifier
+                )
+            }
+        }
+    }
+}
+</pre>
+<p>Now that you&#39;ve created the application image components and logic. It&#39;s time to navigate to <strong>HomeContent.kt </strong>and add some images!</p>
+<h2 is-upgraded><strong>Adding lists</strong></h2>
+<p>First, update the <code>HomeContent</code> to receive a list of images:</p>
+<pre>@Composable
+fun HomeContent(
+   images: List&lt;Image&gt;
+) {
+   // Your code will be here
+}</pre>
+<p>Now that this is done and since it&#39;s receiving a list, this means that you&#39;ll need to implement a list in Compose. Doing this in XML would mean that you&#39;re going to use <strong>RecyclerView</strong> so you needed to create it along with an <strong>Adapter</strong> and the <strong>XML </strong>files for the entries. </p>
+<p>In Compose this is really simple, to create a list you just need to use:</p>
+<ul>
+<li><code>LazyColumn</code></li>
+</ul>
+<p>For vertical lists</p>
+<ul>
+<li><code>LazyRow</code></li>
+</ul>
+<p>For horizontal lists</p>
+<p>With this in mind add:</p>
+<pre>@Composable
+fun HomeContent(
+   images: List&lt;Image&gt;
+) {
+   LazyColumn(
+       modifier = Modifier.fillMaxWidth(),
+
+       content = {
+           items(images) {
+
+               AddUnsplashImage(image = it)
+           }
+       }
+   )
+}</pre>
+<aside class="warning"><p><strong>Note: </strong>Sometimes Android Studio doesn&#39;t recognize the items function from <code>LazyColumn</code> and you need to add the import manually. If you see a <strong>TypeMismatch</strong> warning saying that images should be <strong>Int</strong> instead of <strong>List&lt;Image&gt;</strong>, add to the import section: <strong>import androidx.compose.foundation.lazy.items</strong></p>
+</aside>
+<p>Now that the list is already added and is calling the <code>AddUnsplashImage</code> function that was created before, it&#39;s time to call the <strong>Composables</strong> from <strong>ImagePreview</strong>.</p>
+<pre>@Composable
+fun AddUnsplashImage(image: Image) {
+
+    AddImagePreview(
+            url = image.urls.regular ?: &#34;&#34;,
+            modifier = Modifier
+              .fillMaxWidth()
+              .height(200.dp)
+              .clip(RoundedCornerShape(8.dp))
+              .background(color = colorContentSecondary)
+        )
+}</pre>
+<p>In this <code>Modifier</code>, you&#39;re setting the clip function with a shape - <code>RoundedCornerShape</code>. This is going to transform the image and apply round corners to it.</p>
+<p>Now that the UI is ready, it&#39;s only missing connecting to the existing view model - <strong>UnsplashViewModel</strong> - so the data can be retrieved.</p>
+<p>Open <strong>MainActivity.kt</strong> and declare a property with the <code>UnsplashViewModel</code> type after the class declaration.</p>
+<pre>private val unsplashViewModel: UnsplashViewModel by viewModels()</pre>
+<p>Once done, it&#39;s time to call <code>fetchImages</code> and send the result to <code>HomeContent</code>.</p>
+<pre>class MainActivity : AppCompatActivity() {
+
+    //1
+    private val unsplashViewModel: UnsplashViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        //2
+        unsplashViewModel.fetchImages()
+
+        setContent {
+            //3
+            val images = unsplashViewModel.images.observeAsState()
+
+                //4
+                HomeContent(
+                    images = images.value ?: emptyList()
+                )
+        }
+    }
+}</pre>
+<p>Going through this newly updated code:</p>
+<ol type="1" start="1">
+<li>Declare the <strong>UnsplashViewModel</strong> property</li>
+<li>Once done, inside <code>onCreate</code> call fetchImages, so the Unsplash API is queried for the latest trending images</li>
+<li>Create an observer for the <code>images</code> field that will hold the images</li>
+<li>Remove the <code>AboutContent</code> call and change it instead to <code>HomeScreen</code> where you&#39;re going to send the newly retrieved images</li>
+</ol>
+<p>Every time the <code>images</code> field is updated, <code>MainScreen</code> will recomposite and update the UI with the new content.</p>
+<p>If you try to compile the project now, you&#39;ll see that <code>observeAsState</code> is missing. This is because it&#39;s part of the <strong>runtime-livedata </strong>library. So before you compile the project, go over to the <strong>build.gradle.kts</strong> file and under <strong>dependencies</strong> add:</p>
+<pre>implementation(&#34;androidx.compose.runtime:runtime-livedata:1.1.0-alpha05&#34;)</pre>
+<p>Compile and run the project and let&#39;s see which beautiful images the Unsplash API sends to you.</p>
+<p class="image-container"><img style="width: 300.96px" src="img/7cfa5a494380a4e.png"></p>
+<h2 is-upgraded>Creating more complex layouts</h2>
+<p>Now that you&#39;re seeing all the images, it&#39;s time to improve the layout. Every image is glued to the next one, there are no margins, and there&#39;s no information about the author and the name of the image. So let&#39;s improve this layout.</p>
+<p>Open <strong>HomeContent.kt</strong> and scroll to the <code>AddUnsplashImage</code> function.</p>
+<pre>@Composable
+fun AddUnsplashImage(image: Image) {
+
+   //1
+   Surface(
+       modifier = Modifier.padding(
+           start = 16.dp,
+           end = 16.dp,
+           top = 8.dp,
+           bottom = 8.dp
+       ),
+       color = Color.Transparent
+   ) {
+      //2
+       AddImagePreview(
+           url = image.urls.regular ?: &#34;&#34;,
+           modifier = Modifier
+               .fillMaxWidth()
+               .height(200.dp)
+               .clip(RoundedCornerShape(8.dp))
+               .background(color = colorContentSecondary)
+       )
+       //3
+       val verticalGradientBrush = Brush.verticalGradient(
+           colors = listOf(
+               colorContent20Transparency,
+               colorContent85Transparency
+           )
+       )
+    
+       //4
+       Column(
+           modifier = Modifier
+               .fillMaxWidth()
+               .height(200.dp)
+               .background(brush = verticalGradientBrush),
+           verticalArrangement = Arrangement.Bottom
+       ) {
+
+           //5
+           Column(
+               modifier = Modifier.padding(16.dp)
+           ) {
+
+               Text(
+                   text = image.description ?: &#34;&#34;,
+                   fontSize = 17.sp,
+                   color = colorAccent
+               )
+
+               Spacer(modifier = Modifier.height(4.dp))
+
+               //6
+               Text(
+                   text = image.user.username,
+                   fontSize = 15.sp,
+                   color = colorAccent,
+                   maxLines = 2,
+                   overflow = TextOverflow.Ellipsis
+               )
+           }
+       }
+   }
+}</pre>
+<p>Let&#39;s analyze this code step-by-step:</p>
+<ol type="1" start="1">
+<li>You&#39;re using a <code>Surface</code> here because there are three different layers of the app that need to be put on top of each other:</li>
+</ol>
+<ol type="1" start="1">
+<li>Image</li>
+<li>Gradient </li>
+<li>The author&#39;s name and the picture title</li>
+</ol>
+<ol type="1" start="2">
+<li>The <code>AddImagePreview Composable</code> that you&#39;d already defined</li>
+<li>A color gradient that&#39;s going to be used as an overlay on the image so the text is easier to read</li>
+<li>The previously defined gradient is added as a background on the <code>Column</code>. Also it&#39;s content is aligned to the bottom.</li>
+<li>A second <code>Column</code> is used here to hold the image description and the authors&#39; name as well to define a padding on these components. If this was done on the previous <code>Column</code>, the background wouldn&#39;t fill the entire image.</li>
+<li>Since an image description can be of several lines, here you&#39;re limiting it to be at maximum two. If there&#39;s more, the end text is going to be replaced by ellipsis.</li>
+</ol>
+<p>It&#39;s time to compile and run the app. Let&#39;s see how it looks after all of these changes 🎨. </p>
+<p class="image-container"><img style="width: 311.61px" src="img/d89630d094143254.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Theming and styling" duration="0">
+        <p>Themes and styles are great for two things. First, they allow us to keep our components consistent. If we need to increase the font size we can just update it&#39;s value on the style and all the text that makes use of it will be updated. As apps get with more and more screens this is great to avoid missing that one text that was left with the old font size. Secondly, it seems night mode was the greatest feature two years ago, since most of the platforms and apps mentioned it&#39;s support. Having the possibility to use themes makes this implementation simpler (and faster).</p>
+<h2 is-upgraded>Creating a specific font</h2>
+<p>If you open the <strong>font</strong> folder inside the resource files you&#39;ll see that there&#39;s a <strong>big_noodle_titling.ttf</strong> file over there. In this section you&#39;re going to update the app to use this font as default.</p>
+<p>Start by creating a new file called <strong>Type.kt</strong> inside the <strong>ui/theme</strong> folder.</p>
+<aside class="special"><p><strong>Note:</strong> If you&#39;ve created this file via the <strong>New Kotlin Class/File</strong> remove the class declaration.</p>
+</aside>
+<p>Now, it&#39;s time to load this font and apply it to all the <code>Text</code> Composables in the app.</p>
+<pre>private val BigNoodleTitlingFontFamily = FontFamily(
+    Font(R.font.big_noodle_titling)
+)</pre>
+<p>Define a set of font sizes to use afterward:</p>
+<pre>private val fontSizeLarge = 21.sp
+private val fontSizeMedium = 17.sp
+private val fontSizeSmall = 15.sp</pre>
+<p>Now that the attributes are defined it&#39;s time to set the typography:</p>
+<pre>val typography = Typography(
+    h1 = TextStyle(
+        color = colorAccent,
+        fontFamily = BigNoodleTitlingFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = fontSizeMedium
+    ),
+
+    h2 = TextStyle(
+        color = colorAccent,
+        fontFamily = BigNoodleTitlingFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = fontSizeSmall
+    ),
+
+    h3 = TextStyle(
+        color = colorAccent,
+        fontFamily = BigNoodleTitlingFontFamily,
+        fontSize = fontSizeLarge
+    )
+)</pre>
+<aside class="special"><p><strong>Note:</strong> except the <strong>R</strong> file, all of the imports here should be from <strong>androidx.compose</strong>.</p>
+</aside>
+<h2 is-upgraded><strong>Setting a style</strong></h2>
+<p>With everything defined it is now time to open <strong>HomeScreen.kt</strong> file again and update the <code>Text</code> Composables to use this newly defined <code>TextStyle.</code></p>
+<p>The first <code>Text</code> that you&#39;re going to find is where the image description is used, replace the fontSize and color for the corresponding <code>typography.h1</code> and then the next <code>Text Composable</code> for <code>typography.h2</code>.</p>
+<pre>Text(
+   text = image.description ?: &#34;&#34;,
+   style = typography.h1
+)
+
+Spacer(modifier = Modifier.height(4.dp))
+
+Text(
+   text = image.user.username,
+   style = typography.h2,
+   maxLines = 2,
+   overflow = TextOverflow.Ellipsis
+)</pre>
+<p>Finally, don&#39;t forget that there&#39;s still an <strong>AboutContent.kt</strong> file. Open it and update the same attributes to <code>typography.h3</code>.</p>
+<pre>Text(
+   text = stringResource(id = R.string.about_text),
+   style = typography.h3,
+   textAlign = TextAlign.Center
+)</pre>
+<h2 is-upgraded><strong>Setting a theme</strong></h2>
+<p>After defining a style, you can also define the theme that&#39;s going to be used in your app. This is particularly useful to avoid defining attributes like background, size, etc. for every component. It also makes it simple to define a light and a night theme.</p>
+<p>Create a <strong>Theme.kt </strong>file in <strong>ui/theme</strong>. Here add the following code:</p>
+<pre>private val DarkColorPalette = darkColors(
+   background = colorContent,
+   onBackground = colorAccent
+)
+
+private val LightColorPalette = lightColors(
+   background = colorAccent,
+   onBackground = colorContent
+)
+
+@Composable
+fun UnsplashTheme(
+   darkTheme: Boolean = isSystemInDarkTheme(),
+   content: @Composable () -&gt; Unit
+) {
+
+   val colors = if (darkTheme) {
+       DarkColorPalette
+   } else {
+       LightColorPalette
+   }
+
+   MaterialTheme(
+       colors = colors,
+       typography = typography,
+       shapes = Shapes,
+       content = content
+   )
+}</pre>
+<p>First you&#39;ve defined two different color palettes that can be used throughout the app. In this case they correspond to the dark and light palettes which should be used in case the device is in night mode or light, respectively.</p>
+<p>In order to decide which one the system should use, you&#39;ll check the <code>isSystemInDarkTheme</code> function, that inside looks at the <code>uiMode</code>. Depending, on each one is selected one of those two palettes will be used to set the background color of a <code>Composable</code>.</p>
+<p>Now open <strong>MainActivity.kt</strong> and add the <code>HomeContent</code> invocation to be inside the <code>UnsplashTheme</code> Composable:</p>
+<pre>UnsplashTheme {
+   HomeContent(
+       images = images.value ?: emptyList()
+   )
+}</pre>
+<p>Finally, to see how you could apply this functionality, open <strong>HomeContent.kt</strong> and look for the <code>LazyColumn</code> call. Here, for now you were just defining it to fill the entire width of the screen. Add a background to it that will use the <code>MaterialTheme</code>.</p>
+<pre>LazyColumn(
+   modifier = Modifier
+       .fillMaxWidth()
+       .background(color = MaterialTheme.colors.background),
+
+   content = {
+       items(images) {
+
+           AddUnsplashImage(image = it)
+       }
+   }
+)</pre>
+<p>Now compile and run the app. Switch between the light and night mode and see how your app adjusts 🌓.</p>
+<p class="image-container"><img style="width: 263.04px" src="img/35b94259cfe4233a.png"><img style="width: 263.50px" src="img/248477a04cd2f270.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Navigating between screens" duration="0">
+        <h2 is-upgraded><strong>Adding a top bar</strong></h2>
+<p>Let&#39;s keep adding new features in the app, this time a top bar.</p>
+<p>To do this, you&#39;re going to use a function called <code>Scaffold</code> that already creates the layout structure for the app. If you look at the parameters it receives:</p>
+<pre>@Composable
+fun Scaffold(
+   modifier: Modifier = Modifier,
+   scaffoldState: ScaffoldState = rememberScaffoldState(),
+   topBar: @Composable () -&gt; Unit = {},
+   bottomBar: @Composable () -&gt; Unit = {},
+  snackbarHost: @Composable (SnackbarHostState) -&gt; Unit = { SnackbarHost(it) },
+   floatingActionButton: @Composable () -&gt; Unit = {},
+   floatingActionButtonPosition: FabPosition = FabPosition.End,
+   isFloatingActionButtonDocked: Boolean = false,
+   drawerContent: @Composable (ColumnScope.() -&gt; Unit)? = null,
+   drawerGesturesEnabled: Boolean = true,
+   drawerShape: Shape = MaterialTheme.shapes.large,
+   drawerElevation: Dp = DrawerDefaults.Elevation,
+   drawerBackgroundColor: Color = MaterialTheme.colors.surface,
+   drawerContentColor: Color = contentColorFor(drawerBackgroundColor),
+   drawerScrimColor: Color = DrawerDefaults.scrimColor,
+   backgroundColor: Color = MaterialTheme.colors.background,
+   contentColor: Color = contentColorFor(backgroundColor),
+   content: @Composable (PaddingValues) -&gt; Unit
+)</pre>
+<p>You can find the <code>topBar</code> that you&#39;re going to use, as well as other components that you typically can find on an Android app, for instance, the <code>floatingActionButton</code>.</p>
+<p>Start by creating a new package called <strong>main</strong> that should be inside the <strong>ui</strong> folder. Followed by a new file called <strong>MainScreen.kt</strong>. </p>
+<p>Once again, depending on, how you created the file remove the class declaration if it exists and add:</p>
+<pre>@Composable
+//1
+fun MainScreen(
+   images: List&lt;Image&gt;
+) {
+  //2
+   Scaffold(
+       //3
+       topBar = {
+           TopAppBar(
+               title = {
+                   Text(
+                       text = stringResource(id = R.string.app_name),
+                       style = typography.h3,
+                       //4
+                       color = MaterialTheme.colors.onBackground
+                   )
+               },
+               modifier = Modifier.fillMaxWidth(),
+               backgroundColor = MaterialTheme.colors.background,
+               elevation = 0.dp
+           )
+       },
+       //5
+       content = {
+           HomeContent(
+               images = images
+           )
+       }
+   )
+}</pre>
+<p>Let&#39;s dive in into this new function:</p>
+<ol type="1" start="1">
+<li>As the name mentions, this is going to be the first screen of the app. So in a few steps you&#39;ll need to update the <strong>MainActivity.kt.</strong></li>
+<li>Although this could be done manually, since there&#39;s <code>Scaffold</code> that already defines how an application should look, you&#39;re going to use it.</li>
+<li>There are two arguments that you&#39;re going to define here, the first one is the <code>topBar</code> and <code>content</code>. Starting with the first one, as you saw before, this argument receives a <code>Composable</code> function, so you&#39;ll need to create it. Fortunately, there&#39;s already a <code>TopAppBar</code> that you can use to implement this feature. You just need to define the <code>Text</code>.</li>
+<li>In the previous section you&#39;ve defined a theme for the application, which sets the layout as white if the light mode is on or as black if it&#39;s night mode instead. Here, you&#39;re going to use <code>onBackground</code> color, because it&#39;s the exact opposite of the color used to set a background. If you were going to use the same, well... you wouldn&#39;t be able to read the text.</li>
+<li>The screen that should be used with the <code>Scaffold</code>.</li>
+</ol>
+<p>I&#39;ve mentioned earlier that this new function is going to be the app starting point, so head over <strong>MainActivity.kt</strong> and change the <code>HomeScreen</code> call to <code>MainScreen</code>.</p>
+<pre>UnsplashTheme {
+   MainScreen(
+       images = images.value ?: emptyList()
+   )
+}</pre>
+<aside class="special"><p><strong>Note:</strong> as a challenge, the default position for the title is aligned to the left, try to center it on the screen. There are several possibilities to do this, for instance you can look at the <code>AppBar</code> source code and create your own Composable 🙂.</p>
+</aside>
+<p>Time to compile the app and see how it looks now! </p>
+<p class="image-container"><img style="width: 268.59px" src="img/83a97ecbfd69d813.png"></p>
+<h2 is-upgraded>Adding<strong> a navigation bar</strong></h2>
+<p>Now that you&#39;ve added the top bar, it&#39;s time to add the navigation bar. And yes, you&#39;re also going to use the <code>Scaffold</code> introduced before for that 🙌.</p>
+<p>Start by creating a <strong>BottomNavigationScreen.kt </strong>file inside the <strong>main</strong> folder.</p>
+<p>Here you&#39;re going to create a class that&#39;s going to be used to define each tab - a tag, it&#39;s the label text and the icon that should be displayed. In this newly created file add:</p>
+<pre>sealed class BottomNavigationScreens(
+    val route: String,
+    @StringRes val stringResId: Int,
+    @DrawableRes val drawResId: Int
+) {
+
+    object Home : BottomNavigationScreens(&#34;Home&#34;, R.string.navigation_home, R.drawable.ic_home)
+    object About : BottomNavigationScreens(&#34;About&#34;, R.string.navigation_about, R.drawable.ic_about)
+}</pre>
+<p>Finally go back to the <strong>MainContent.kt</strong> file and update the <code>Composable</code> function to use the <code>NavHost</code>.</p>
+<p>This component is part of the <strong>androidx.navigation</strong> library, so you need to add it to the <strong>build.gradle.kts</strong> inside the <strong>dependencies</strong> section.</p>
+<pre>implementation(&#34;androidx.navigation:navigation-compose:2.4.0-alpha10&#34;)</pre>
+<p>Wait for the project to synchronize. Once done, before the function declaration add:</p>
+<pre>private val DEFAULT_SCREEN = BottomNavigationScreens.Home</pre>
+<p>This field corresponds to the first tab that should be visible, in other words, selected.</p>
+<p>Now you need to define a navigation controller. Since the app needs to keep track of the tab that&#39;s currently selected, you&#39;re going to use <code>rememberNavController</code>. After the function declaration add:</p>
+<pre>val navController = rememberNavController()</pre>
+<p>In the previous section when looking at the <code>Scaffold</code> function (you can scroll up, I&#39;ll wait 👀) you saw that there&#39;s a <code>bottomBar</code> parameter. Let&#39;s define it here.</p>
+<pre>Scaffold(
+...
+bottomBar = {
+   val bottomNavigationItems = listOf(
+       BottomNavigationScreens.Home,
+       BottomNavigationScreens.About
+   )
+
+   MainBottomBar(
+       navController = navController,
+       items = bottomNavigationItems
+   )
+},
+...
+)</pre>
+<p>Here you&#39;re defining which tabs need to be added. </p>
+<p><code>MainBottomBar</code> is not yet defined, it&#39;s a custom <code>Composable</code> created to define a tab, so let&#39;s create it! Inside the <strong>main</strong> folder add a new file - <strong>MainBottomBar.kt</strong>.</p>
+<p>Now create the <code>Composable</code> function - <code>MainBottomBar</code>:</p>
+<pre>private lateinit var selectedIndex: MutableState&lt;Int&gt;
+
+@Composable
+fun MainBottomBar(
+   navController: NavHostController,
+   items: List&lt;BottomNavigationScreens&gt;
+) {
+
+   BottomNavigation(
+       backgroundColor = colorPrimary
+   ) {
+
+       //1
+       selectedIndex = remember { mutableStateOf(0) }
+
+       //2
+       items.forEachIndexed { index, screen -&gt;
+
+           val isSelected = selectedIndex.value == index
+
+           //3
+           BottomNavigationItem(
+               modifier = Modifier.background(MaterialTheme.colors.background),
+               icon = {
+                   Icon(
+                       painter = painterResource(id = screen.drawResId),
+                       contentDescription = stringResource(id = screen.stringResId)
+                   )
+               },
+               label = {
+                   Text(
+                       stringResource(id = screen.stringResId),
+                       style = typography.subtitle1
+                   )
+               },
+               selected = isSelected,
+               //4
+               selectedContentColor = colorPrimary,
+               unselectedContentColor = colorAccent,
+               alwaysShowLabel = true,
+               //5
+               onClick = {
+                   if (!isSelected) {
+                       selectedIndex.value = index
+                       navController.navigate(screen.route)
+                   }
+               }
+           )
+       }
+   }
+}</pre>
+<p>Going through the code:</p>
+<ol type="1" start="1">
+<li>In order for the tab to be updated, when the user selects a different one, it needs to keep track of the one that&#39;s selected. For that you&#39;re going to <code>remember</code> <code>selectedIndex</code> so recomposition can occur and the color of the icon and text changes depending if it&#39;s selected or not.</li>
+<li>This list of items is the one that you&#39;ve defined before in <strong>MainScreen.kt</strong> - it should contain the home and about screens.</li>
+<li>For each of these items a new <code>BottomNavigationItem</code> is created with the corresponding icon and label.</li>
+<li>Another cool feature here is that <code>BottomNavigationItem</code> can handle the selected and unselected states and apply the corresponding defined color.</li>
+<li>The onClick event that&#39;s responsible for updating the index and changing the screen.</li>
+</ol>
+<p>Since we&#39;re using styles and themes don&#39;t forget to add at <strong>Type.kt</strong> the <code>subtitle1</code> definition.</p>
+<pre>subtitle1 = TextStyle(
+   fontFamily = BigNoodleTitlingFontFamily,
+   fontWeight = FontWeight.Normal,
+   fontSize = fontSizeSmall
+)</pre>
+<aside class="warning"><p><strong>Note: </strong>In order for <code>selected/unselectedContentColor</code> to be applied in the text, you can&#39;t define its color on the TextStyle. Otherwise, it will take precedence, meaning that both tabs will have the same color.</p>
+</aside>
+<p>Finally, get back to <strong>MainScreen.kt</strong> it&#39;s time to make the final adjustment. For that you need to update the <code>content</code>  block of the <code>Scaffold</code> with:</p>
+<pre>    NavHost(navController, startDestination = DEFAULT_SCREEN.route) {
+        composable(BottomNavigationScreens.Home.route) {
+            HomeContent(
+                images = images.value ?: emptyList(),
+                onSearchAction = onSearchAction
+            )
+        }
+        composable(BottomNavigationScreens.About.route) {
+            AboutContent()
+        }
+    }</pre>
+<p>This way when the user presses a different tab then the one that&#39;s selected, it will automatically recreate this part of the screen.        </p>
+<p>Compile and run the app to see how it looks!</p>
+<p class="image-container"><img style="width: 249.55px" src="img/75b1b1253988e3a9.png"><img style="width: 250.01px" src="img/f40e28651180bd00.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Managing State" duration="0">
+        <p>Your app is coming along quite nicely! Well done 🙌!</p>
+<p>In this chapter you&#39;re going to see how you can interact with it. The goal is for the user to enter some text and the app should search photos related to that word in the Unsplash repository.</p>
+<p>Start by opening the <strong>MainContent.kt</strong> file and lets add a new <code>item</code> to the list:</p>
+<p>content = {</p>
+<p>  item {</p>
+<p>                    AddSearchField(onSearchAction)</p>
+<p>                }</p>
+<p>...</p>
+<p>}</p>
+<p>So you now need to define the <code>AddSearchField</code> function and <code>onSearchAction</code> action.</p>
+<p>Let&#39;s start by adding the search field:</p>
+<pre>@Composable
+fun AddSearchField(onSearchAction: (String) -&gt; Unit) {
+   //1
+   val search = remember { mutableStateOf(&#34;&#34;) }
+
+   //2
+   val focused = remember { mutableStateOf(false) }
+
+   //3
+   OutlinedTextField(
+       //4
+       value = search.value,
+       //5
+       onValueChange = { value -&gt;
+           search.value = value
+       },
+       modifier = Modifier
+           .fillMaxWidth()
+           .padding(16.dp)
+           .onFocusChanged {
+               focused.value = it.isFocused
+           },
+       //6
+       placeholder = {
+           Text(
+               text = stringResource(id = R.string.search_hint),
+               style = typography.h3,
+               color = MaterialTheme.colors.onBackground
+           )
+       },
+       //7
+       leadingIcon = {
+           val icon = painterResource(id = R.drawable.ic_search)
+           val description =
+               stringResource(R.string.description_search)
+
+           Icon(
+               painter = icon,
+               contentDescription = description
+           )
+       },
+       //8
+       colors = TextFieldDefaults.outlinedTextFieldColors(
+           focusedBorderColor = colorPrimary,
+           unfocusedBorderColor = colorAccent,
+           leadingIconColor = colorAccent,
+           cursorColor = colorAccent,
+           textColor = colorAccent
+       ),
+       //9
+       keyboardOptions = KeyboardOptions.Default.copy(
+           imeAction = ImeAction.Done
+       ),
+       //10
+       keyboardActions = KeyboardActions {
+           onSearchAction(search.value)
+       }
+   )
+}</pre>
+<p>I know that is a bit of code, so let&#39;s go step-by-step:</p>
+<ol type="1" start="1">
+<li>You&#39;ll need to remember the text that the user has added. This is reflected in point 4 where this text is set. Everytime a new character is added it triggers the <code>OutlinedTextField</code> to recompose.</li>
+<li>If the <code>OutlinedTextField</code> is focused, it should show a different color. Similar to property defined on 1, <code>focused</code> is used to recomposite this field when the user interacts with it.</li>
+<li>The <code>Composable</code> function to be used. There&#39;s also <code>TextField</code>, being the difference between both - that this one creates an outline around the field.</li>
+<li>The text that should be shown.</li>
+<li>Every time the user adds or removes a character this function is triggered. You&#39;ll need to update <code>search</code> with this new value so the field can be recomposed.</li>
+<li>The equivalent of using <em>hint</em> in an <code>EditText</code>. Tells the user what action is expected, in this case it will search for an image that corresponds to that topic.</li>
+<li>An icon that&#39;s used before the text that&#39;s going to be added.</li>
+<li>A set of colors used to define the look of the <code>TextField</code>.</li>
+<li>Setting the <code>KeyboardOptions</code> with the <code>ImeAction</code> <code>Done</code> will change the keyboard layout to show the bottom right key as a tick.</li>
+<li>Finally the <code>KeyboardActions</code> defines what should happen when the user clicks on the key mentioned in 9. In this scenario it will look for images that belong to the text that was just entered.</li>
+</ol>
+<p>Now that the function is done, you&#39;ll need to update the <code>HomeContent</code> declaration, so it receives the <code>onSearchAction</code>:</p>
+<pre>fun HomeContent(
+   images: List&lt;Image&gt;,
+   onSearchAction: (String) -&gt; Unit
+)</pre>
+<p>All the calls before, so in <strong>MainScreen.kt:</strong></p>
+<pre>fun MainScreen(
+   images: List&lt;Image&gt;,
+   onSearchAction: (String) -&gt; Unit
+)</pre>
+<p>and in the <code>content</code> parameter:</p>
+<pre>   HomeContent(
+       images = images,
+       onSearchAction = onSearchAction
+   )
+</pre>
+<p>And in <strong>MainActivity.kt</strong>:</p>
+<pre>MainScreen(
+   images = images.value ?: emptyList(),
+   onSearchAction = { topic -&gt; unsplashViewModel.searchForATopic(topic) }
+)</pre>
+<p>Now that everything is done, compile and run the project and let&#39;s see how it looks!</p>
+<p class="image-container"><img style="width: 252.56px" src="img/94a50063b296a6e1.png"><img style="width: 252.55px" src="img/7877202f898a2b56.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="But wait! There&#39;s more." duration="0">
+        <p>As you&#39;ve reached the last chapter of this codelab, I wanted to share something that I believe that&#39;s going to help you develop your next apps - alicerce.</p>
+<p>Alicerce is a template that I&#39;ve created that automatically setups an android and a desktop application that shares most of its code via:</p>
+<ul>
+<li>Kotlin Multiplatform (business logic)</li>
+<li>Compose (UI)</li>
+</ul>
+<p>Give it a go! You can find the <a href="https://github.com/cmota/alicerce" target="_blank">repository</a> here.</p>
+<p><a href="https://github.com/cmota/alicerce" target="_blank"><paper-button class="colored" raised>Alicerce GitHub repository</paper-button></a></p>
+<p>There&#39;s also a full version of Unsplash using this template in this <a href="https://github.com/cmota/unsplash" target="_blank">repository</a>.</p>
+<p><a href="https://github.com/cmota/unsplash" target="_blank"><paper-button class="colored" raised>Unsplash (shared code) GitHub repository</paper-button></a></p>
+<p>If you have any questions just reach me at <a href="https://twitter.com/cafonsomota" target="_blank">twitter</a>. All the feedback is more than welcome.</p>
+<p><a href="https://twitter.com/cafonsomota" target="_blank"><paper-button class="colored" raised>Follow me on twitter 🐦</paper-button></a></p>
+<p>See you in the next event! 🖖</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
