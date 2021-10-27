@@ -24,8 +24,8 @@
   <google-codelab codelab-gaid=""
                   id="a-composable-new-world"
                   title="A Composable New World"
-                  environment="android"
-                  feedback-link="https://github.com/cmota/a-composable-new-world/issues">
+                  environment="web"
+                  feedback-link="https://github.com/cmota/compose-codelabs/issues">
     
       <google-codelab-step label="Introduction" duration="80">
         <p class="image-container"><img style="width: 277.57px" src="img/58ecd00b1699df79.png"></p>
@@ -891,8 +891,7 @@ fun MainBottomBar(
 <pre>    NavHost(navController, startDestination = DEFAULT_SCREEN.route) {
         composable(BottomNavigationScreens.Home.route) {
             HomeContent(
-                images = images.value ?: emptyList(),
-                onSearchAction = onSearchAction
+                images = images
             )
         }
         composable(BottomNavigationScreens.About.route) {
@@ -910,12 +909,12 @@ fun MainBottomBar(
         <p>Your app is coming along quite nicely! Well done 🙌!</p>
 <p>In this chapter you&#39;re going to see how you can interact with it. The goal is for the user to enter some text and the app should search photos related to that word in the Unsplash repository.</p>
 <p>Start by opening the <strong>MainContent.kt</strong> file and lets add a new <code>item</code> to the list:</p>
-<p>content = {</p>
-<p>  item {</p>
-<p>                    AddSearchField(onSearchAction)</p>
-<p>                }</p>
-<p>...</p>
-<p>}</p>
+<pre>content = {
+  item {
+                    AddSearchField(onSearchAction)
+                }
+...
+}</pre>
 <p>So you now need to define the <code>AddSearchField</code> function and <code>onSearchAction</code> action.</p>
 <p>Let&#39;s start by adding the search field:</p>
 <pre>@Composable
