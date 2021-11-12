@@ -11,7 +11,7 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.serialization.json.Json
 
-private const val ACCESS_KEY = "ngak5Lv2ZsDvYfnAJjyMP0mnV23pWs5hcvOBXceV3Wc"
+private const val ACCESS_KEY = "YOUR_API_KEY"
 
 private const val BASE_URL = "https://api.unsplash.com"
 private const val PHOTOS = "$BASE_URL/photos"
