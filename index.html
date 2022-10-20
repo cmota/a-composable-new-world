@@ -30,9 +30,9 @@
       <google-codelab-step label="Introduction" duration="80">
         <p class="image-container"><img style="width: 277.57px" src="img/58ecd00b1699df79.png"></p>
 <p>Jetpack Compose official logo.</p>
-<p><strong>Last Updated:</strong> 2021-10-16</p>
+<p><strong>Last Updated:</strong> 2022-10-20</p>
 <h2 is-upgraded><strong>Jetpack Compose</strong></h2>
-<p>Throughout this year we&#39;ve got our timelines flooded with posts about Jetpack Compose. It all started in February-March with the #AndroidDevChallenge and from then on we&#39;ve kept seeing new developers joining this Composable new world!</p>
+<p>Throughout these past two years we&#39;ve got our timelines flooded with posts about Jetpack Compose. It all started in February-March 2021 with the #AndroidDevChallenge and from then on we&#39;ve kept seeing new developers joining this Composable new world!</p>
 <h3 is-upgraded><strong>What&#39;s Jetpack Compose?</strong></h3>
 <p>&#34;Jetpack Compose is Android&#39;s modern toolkit for building native UI. It simplifies and accelerates UI development on Android. Quickly bring your app to life with less code, powerful tools, and intuitive Kotlin APIs.&#34;, as mentioned on the <a href="https://developer.android.com/jetpack/compose" target="_blank">official website</a>.</p>
 <p>Along with this, it&#39;s also worth mentioning that Android features are no longer chained to a specific API version. Starting in API 21, all developments are backward compatible. This means that if, for instance, you want to use the IME animation that was released in Android 11, you can use them back until lollipop. Yes! When Android was still named after popular desserts.</p>
@@ -46,7 +46,7 @@
 <li><a href="https://github.com/android/compose-samples" target="_blank">Jetpack Compose Samples</a></li>
 </ul>
 <h3 is-upgraded><strong>A few more notes</strong></h3>
-<p>Before we jump into the Codelab, remember that Jetpack Compose is in version 1.0.x. If we compare it with XML it has just given its first steps, so you might find a couple of bugs along the way, or perhaps some API&#39;s don&#39;t support the full set of attributes/functionalities that you&#39;re used to. This is perfectly fine, for the first one you always have Google&#39;s <a href="https://issuetracker.google.com/issues/new?component=610764&template=1424126" target="_blank">issue tracker</a> from where you can check if anyone found the same problem, for the second one, if there&#39;s no library that solves the problem you can always use XML on that Activity (they&#39;re interoperable), or better - you can give it support!</p>
+<p>Before we jump into the Codelab, remember that Jetpack Compose is in version 1.3.0. If we compare it with XML it has just given its first steps, so you might find a couple of bugs along the way, or perhaps some API&#39;s don&#39;t support the full set of attributes/functionalities that you&#39;re used to. This is perfectly fine, for the first one you always have Google&#39;s <a href="https://issuetracker.google.com/issues/new?component=610764&template=1424126" target="_blank">issue tracker</a> from where you can check if anyone found the same problem, for the second one, if there&#39;s no library that solves the problem you can always use XML on that Activity (they&#39;re interoperable), or better - you can give it support!</p>
 <h2 is-upgraded><strong>What you&#39;ll build</strong></h2>
 <p>In this codelab, you&#39;re going to build the <em>Unsplash </em>app! It&#39;s a simple application that communicates with the Unsplash servers in order to download the most beautiful images out there.</p>
 <p class="image-container"><img style="width: 292.77px" src="img/9519e6baec149821.png"></p>
@@ -61,10 +61,10 @@
 </ul>
 <h2 is-upgraded><strong>What do I need to start?</strong></h2>
 <ul>
-<li><a href="https://developer.android.com/studio" target="_blank">Android Studio Arctic Fox</a> or a newer version. My suggestion is to use the first one, patch 3 was just released and at this moment is the most stable version. It&#39;s also worth mentioning that if you have a Mac M1 there&#39;s an optimized Android Studio version for your processor that I strongly recommend.</li>
+<li><a href="https://developer.android.com/studio" target="_blank">Android Studio Dolphin</a> or a previous version compatible with Jetpack Compose. My suggestion is to use the latest stable one. It&#39;s also worth mentioning that if you have a Mac M1 there&#39;s an optimized version for your processor that I strongly recommend.</li>
 </ul>
 <h2 is-upgraded><strong>How to create a Compose project?</strong></h2>
-<p>Android Studio Arctic Fox and newer versions already have a new template for Jetpack Compose. Although in this codelab you&#39;re going to start with an existing project that already communicates with the Unsplash servers in order to get the latest trending images. It&#39;s worth mentioning that you can easily create a new project via the <strong>New Project</strong> wizard on Android Studio.</p>
+<p>The latest versions of Android Studio already have a new template for Jetpack Compose. Although in this codelab you&#39;re going to start with an existing project that already communicates with the Unsplash servers in order to get the latest trending images. It&#39;s worth mentioning that you can easily create a new project via the <strong>New Project</strong> wizard on Android Studio.</p>
 <p>To do this, open Android Studio and click in <strong>New Project</strong>.</p>
 <p class="image-container"><img style="width: 624.00px" src="img/f6d20bb9ea926361.png"></p>
 <p>You&#39;ll be prompted with a similar screen where you find a grid with several templates. Select the <strong>Empty Compose Activity</strong>.</p>
@@ -72,7 +72,7 @@
 <p class="image-container"><img style="width: 624.00px" src="img/1c62ece8d3be84d5.png"></p>
 <p>After filling all the fields, click on <strong>Finish</strong> and wait for the project to synchronize.</p>
 <p>Once done, click on compile and run in a couple of seconds you&#39;ll see an app on your phone/emulator welcoming you to this Composable new world! </p>
-<aside class="warning"><p><strong>Note: </strong>At the time of this writing, the current version of Jetpack Compose is <strong>1.1.0-alpha05</strong> which is compatible with <strong>Kotlin 1.5.31</strong>. Since the template is going to use an older version, feel free to update to a new one.</p>
+<aside class="warning"><p><strong>Note: </strong>At the time of this writing, the current version of Jetpack Compose compiler is <strong>1.3.2</strong> which is compatible with <strong>Kotlin 1.7.20</strong>. If there's a new version available, feel free to update.</p>
 </aside>
 
 
@@ -321,7 +321,7 @@ fun AddUnsplashImage(image: Image) {
 <p>Once done, create a new package called <strong>components</strong>. It should be inside <strong>com.cmota.unsplash. </strong>Here create a new class and call it <strong>ImagePreview.kt</strong>. This is a component that you can reuse throughout your app screens, so instead of adding it to <strong>HomeContent.kt</strong> increasing the number of lines of that file and reducing readability I&#39;ve decided to add it inside <strong>components</strong>. </p>
 <p>Now, if you want to add images on another screen instead of looking for the correct function inside <strong>HomeContent.kt</strong> you just need to browse your <strong>components</strong> folder.</p>
 <p>It&#39;s now time to define the image integration with Coil.</p>
-<pre>@OptIn(ExperimentalCoilApi::class)
+<pre>
 @Composable
 //1
 fun AddImagePreview(
@@ -334,8 +334,8 @@ fun AddImagePreview(
        .crossfade(true)
        .build()
    //3
-   val painter = rememberImagePainter(
-       request = request
+   val painter = rememberAsyncImagePainter(
+       model = request
    )
 
    Box {
@@ -348,10 +348,10 @@ fun AddImagePreview(
        )
        //5
        when (painter.state) {
-           is ImagePainter.State.Loading -&gt; {
+           is AsyncImagePainter.State.Loading -&gt; {
                AddImagePreviewEmpty(modifier)
            }
-           is ImagePainter.State.Error -&gt; {
+           is AsyncImagePainter.State.Error -&gt; {
                AddImagePreviewEmpty(modifier)
            }
            else -&gt; {
@@ -369,40 +369,14 @@ fun AddImagePreview(
 <li>Finally, depending on the current state of the image one might want to show different screens. For instance, if an image fails to load, you may want to add a retry button. Here, you&#39;re going to fallback and use always the same - <code>AddImagePreviewEmpty</code></li>
 </ol>
 <p>Add the <code>AddImagePreviewEmpty</code> function:</p>
-<pre>@Composable
-fun AddImagePreviewEmpty(
-    modifier: Modifier
-) {
-
-    Column(
-        modifier = modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        Surface(
-            modifier = modifier,
-            color = Color.Transparent
-        ) {
-
-            val icon = painterResource(R.drawable.ic_launcher)
-            val description = stringResource(id = R.string.description_preview_error)
-
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-
-                Image(
-                    painter = icon,
-                    contentScale = ContentScale.Crop,
-                    contentDescription = description,
-                    modifier = modifier
-                )
-            }
-        }
-    }
+<pre>
+@Composable
+fun AddImagePreviewEmpty(modifier: Modifier) {
+  Image(
+    painter = painterResource(id = R.drawable.ic_launcher),
+    contentDescription = stringResource(id = R.string.description_preview_error),
+    modifier = modifier
+  )
 }
 </pre>
 <p>Now that you&#39;ve created the application image components and logic. It&#39;s time to navigate to <strong>HomeContent.kt </strong>and add some images!</p>
